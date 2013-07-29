@@ -1,6 +1,6 @@
 <?php
 if (isset($_GET['jquery'])) {
-  ##Jquery 1.10.2
+	##Jquery 1.10.2
 	header('Content-type: text/javascript');
 	?>/*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
 //@ sourceMappingURL=jquery-1.10.2.min.map
@@ -40,8 +40,8 @@ if (isset($_GET['css'])) {
 	#scripts_container textarea { width: 25%; display: inline-block; }
 	#scripts_container { word-spacing: 0; }
 	#submit { margin: 0 auto; display: block; }
-	.progress { position: relative; }
-	.progress-txt { position: absolute; text-shadow: 0 0 10px #888; display: block; width: 100%; background: transparent; text-align: center; left: 0; height: inherit; line-height: inherit; top: 0; font-size: 0.9em; font-weight: bolder; font-family: "Arial"; }
+	.progress { position: relative; margin-bottom: 0; }
+	.progress-txt { position: absolute; text-shadow: 0 0 10px #888; display: block; width: 100%; background: transparent; text-align: center; left: 0; height: inherit; line-height: inherit; top: 0; }
 
 	<?php
 	exit;
@@ -217,7 +217,7 @@ $scripts = array_values($scripts);//Réinitialise les clés numériques
 				$('textarea.form-control[name*="scripts"]').first().clone().val('').html('').appendTo('#scripts_container');
 			});
 			$('form').submit(function(){
-				$('#wait').slideDown(300);
+				$('#wait').slideDown(150);
 			});
 		});
 		</script>
@@ -280,9 +280,12 @@ $scripts = array_values($scripts);//Réinitialise les clés numériques
 						// if ((int) $ratiowidth === 100) { $ratiowidth = 0; }//old code
 						if ($act_ratio < 100) { $act_ratio = 100 - $act_ratio; }//Inversion du ratio s'il est inférieur à 100, car 100 définit le temps le plus long, donc aucun "gain" de temps
 						$act_ratio = number_format($act_ratio, 2, '.', ' ');//On reformate le ratio
+						$color = 'success';
 						if ($act_ratio === '100.00') {
 							// $act_ratio = '<span style="font-family: Lucida Console; letter-spacing: -3px; text-decoration: none; color:red;">/<span style="border-top:solid 0px red;">!</span>\</span> Long...';
-							$act_ratio = 'Long...';
+							$color = 'warning';
+							$act_ratio = '0%';
+							$ratiowidth = 100;
 						} else {
 							$act_ratio = '+'.$act_ratio.'%';//On affiche un ratio avec plus de détails, et on le masque s'il est au maximum de son temps
 						}
@@ -293,11 +296,11 @@ $scripts = array_values($scripts);//Réinitialise les clés numériques
 						<!--<hr />Script n°<strong><?php echo $numb + 1; ?></strong><br />-->
 						Temps : <?php echo number_format($times[$numb]*1000/$nb_exec, 4, '.', ' '); ?>ms
 						<div class="progress">
-							<div class="progress-bar progress-bar-success" style="width:<?php echo $ratiowidth; ?>%"></div>
+							<div class="progress-bar progress-bar-<?php echo $color; ?>" style="width:<?php echo $ratiowidth; ?>%"></div>
 							<span class="progress-txt"><?php echo $act_ratio; ?></span>
 						</div>
 						
-						<div><?php echo str_replace('&lt;?php<br />', '', highlight_string("<?php\n".$script, true)); ?></div></td>
+						<div><?php echo str_replace('&lt;?php', '', highlight_string("<?php ".$script, true)); ?></div></td>
 						
 						<?php
 						if ($i % 1 === 0) { ?></tr><?php }
@@ -335,6 +338,7 @@ $scripts = array_values($scripts);//Réinitialise les clés numériques
 	}
 	?>
 		</div>
+		<div id="pop"><div class="popover"><div class="arrow"></div><h3 class="popover-title">Hello !!</h3><div class="popover-content">My_content !!</div></div></div>
 	</div>
 </div>
 </body>
