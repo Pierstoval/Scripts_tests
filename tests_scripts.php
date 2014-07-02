@@ -255,8 +255,10 @@ $scripts = array_values($scripts);//Réinitialise les clés numériques
 		/*-------------------------------------------------------------*/
 
 		$ratios = array();
+		$max = max($times);
+		if ($max == 0) { $max = 1; }
 		foreach ($scripts as $numb => $script) {
-			$ratios[$numb] = number_format($times[$numb] / max($times), 4);//Détermination des ratios de temps d'exécution
+			$ratios[$numb] = number_format($times[$numb] / $max, 4);//Détermination des ratios de temps d'exécution
 		}
 
 		$time_global = microtime(true) - $time_global;//On récupère le temps total d'exécution
