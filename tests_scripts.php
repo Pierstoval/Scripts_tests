@@ -256,7 +256,9 @@ $scripts = array_values($scripts);//Réinitialise les clés numériques
 
 		$ratios = array();
 		$max = max($times);
-		if ($max == 0) { $max = 1; }
+		if ($max == 0) {
+			$max = 1;
+		}
 		foreach ($scripts as $numb => $script) {
 			$ratios[$numb] = number_format($times[$numb] / $max, 4);//Détermination des ratios de temps d'exécution
 		}
